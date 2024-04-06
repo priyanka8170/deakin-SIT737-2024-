@@ -2,7 +2,7 @@ const express = require('express');
 const winston = require('winston');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Create a logger object
 const logger = winston.createLogger({
