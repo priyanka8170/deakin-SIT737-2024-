@@ -7,7 +7,7 @@ const express= require("express");
         const n1= parseInt(req.query.n1);
         const n2=parseInt(req.query.n2);
         const result = addTwoNumber(n1,n2);
-        res.json({statuscocde:200, data: result }); 
+        res.json({statuscode:200, data: result }); 
     });
     console.log (addTwoNumber(19,12));
     const port=3040;
