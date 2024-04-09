@@ -73,6 +73,51 @@ app.post('/divide', (req, res) => {
     res.json({ result });
 });
 
+// Exponentiation endpoint
+app.post('/exponentiate', (req, res) => {
+    const { base, exponent } = req.body;
+    if (isNaN(base) || isNaN(exponent)) {
+        logger.error('Invalid parameters for exponentiation:', { base, exponent });
+        return res.status(400).json({ error: 'Parameters must be valid numbers' });
+    }
+    const result = Math.pow(parseFloat(base), parseFloat(exponent));
+    logger.info('Exponentiation operation performed:', { base, exponent, result });
+    res.json({ result });
+});
+
+// Square root endpoint
+app.post('/sqrt', (req, res) => {
+    const { number } = req.body;
+    if (isNaN(number)) {
+        logger.error('Invalid parameter for square root:', { number });
+        return res.status(400).json({ error: 'Parameter must be a valid number' });
+    }
+    if (parseFloat(number) < 0) {
+        logger.error('Cannot calculate square root of a negative number:', { number });
+        return res.status(400).json({ error: 'Cannot calculate square root of a negative number' });
+    }
+    const result = Math.sqrt(parseFloat(number));
+    logger.info('Square root operation performed:', { number, result });
+    res.json({ result });
+});
+
+// Modulo operation endpoint
+app.post('/modulo', (req, res) => {
+    const { dividend, divisor } = req.body;
+    if (isNaN(dividend) || isNaN(divisor)) {
+        logger.error('Invalid parameters for modulo operation:', { dividend, divisor });
+        return res.status(400).json({ error: 'Parameters must be valid numbers' });
+    }
+    if (parseFloat(divisor) === 0) {
+        logger.error('Division by zero error in modulo operation:', { dividend, divisor });
+        return res.status(400).json({ error: 'Cannot perform modulo operation with divisor equal to zero' });
+    }
+    const result = parseFloat(dividend) % parseFloat(divisor);
+    logger.info('Modulo operation performed:', { dividend, divisor, result });
+    res.json({ result });
+});
+
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     logger.error('Internal server error:', { error: err.message }); // Log internal server errors
